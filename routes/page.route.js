@@ -1,13 +1,13 @@
-const repo = require("../db/userRepository");
+const repo = require("../db/pageRepository");
 const auth = require("../middleware/auth");
 
 const validateUser = require("../validators/userValidator");
 const express = require("express");
 const router = express.Router();
 
-router.get("/current", auth, async (req, res) => {
-  const user = await repo.getUserById(req.user._id);
-  res.send(user);
+router.get("/", async (req, res) => {
+  const pages = await getAllPages();
+  res.send(pages);
 });
 
 router.post("/", async (req, res) => {

@@ -1,7 +1,7 @@
 const { User } = require("./models/user.model");
 const bcrypt = require("bcrypt");
 
-const repository = {
+const userRepository = {
   async userWithThisEmailExists(email) {
     var existingUser = await User.findOne({ email });
     return existingUser ? true : false;
@@ -26,4 +26,4 @@ const repository = {
   },
 };
 
-module.exports = repository;
+module.exports = userRepository;
