@@ -2,7 +2,15 @@ const { Page } = require("./models/page.model");
 
 const pageRepository = {
   async getAllPages() {
-    return await Page.find();
+    const pages = await Page.find();
+    return pages.map((p) => {
+      return {
+        _id: p._id,
+        subject: p.subject,
+        slug: p.slug,
+        subtitle: p.subtitle,
+      };
+    });
   },
 
   async getPageById(id) {
@@ -11,15 +19,8 @@ const pageRepository = {
 
   async createNewPage(newPage) {
     console.log(newPage);
-    /*     const page = new Page({
-      ...newPage,
-    });
- */
-    const page = await Page.create(newPage);
 
-    //console.log("before save");
-    /*     await page.save();
-    console.log("page saved"); */
+    const page = await Page.create(newPage);
 
     return page;
   },

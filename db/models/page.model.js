@@ -8,6 +8,12 @@ const schema = new mongoose.Schema({
   subject: {
     type: String,
   },
+  slug: {
+    type: String,
+  },
+  subtitle: {
+    type: String,
+  },
   comments: {
     type: [CommentSchema],
   },

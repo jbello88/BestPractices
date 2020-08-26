@@ -6,33 +6,29 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const pages = await getAllPages();
-  res.send(pages);
+  const pages = await repo.getAllPages();
+  console.log(pages);
+
+  res.json(pages);
+});
+
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  const page = await repo.getPageById(id);
+  console.log(page);
+  res.json(page);
 });
 
 router.post("/", async (req, res) => {
   // validate the request body first
-  console.log(req.body);
-  const { error } = validateUser(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  //console.log(req.body);
+  //const { error } = validateUser(req.body);
+  //if (error) return res.status(400).send(error.details[0].message);
 
   //find an existing user
-  const userAlreadyExists = await repo.userWithThisEmailExists(req.body.email);
-  if (userAlreadyExists)
-    return res.status(400).send("User already registered.");
 
-  user = await repo.createNewUser(
-    req.body.name,
-    req.body.email,
-    req.body.password
-  );
-
-  const token = user.generateAuthToken();
-  res.header("x-auth-token", token).send({
-    _id: user._id,
-    name: user.name,
-    email: user.email,
-  });
+  const newPage = await repo.createNewPage(req.body);
+  res.send(newPage);
 });
 
 module.exports = router;

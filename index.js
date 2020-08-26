@@ -1,4 +1,5 @@
-const usersRoute = require("./routes/user.route");
+const userRoute = require("./routes/user.route");
+const pageRoute = require("./routes/page.route");
 const express = require("express");
 const app = express();
 require("dotenv").config();
@@ -16,7 +17,8 @@ const cors = require("cors");
   app.use(express.json());
   app.use(cors());
 
-  app.use("/api/users", usersRoute);
+  app.use("/api/users", userRoute);
+  app.use("/api/pages", pageRoute);
 
   app.use((err, req, res, next) => {
     console.error(new Date(), err.message);
